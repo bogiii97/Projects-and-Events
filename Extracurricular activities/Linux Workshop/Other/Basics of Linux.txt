@@ -1,0 +1,79 @@
+Šta je Linux?
+
+*Linux
+Mi kada kupimo računar imamo samo hardver(cpu,mem,graf karticu...). Da bi to
+koristili neko mora da zna kako da komunicira sa tim uređajima, kako da ih kontroliše
+i raspodeli među više korisnika,ako ima više korisnika. Za to nam služi parče softvera
+koje se naziva Linux Kernel i on predstavlja srž Linuxa, on komunicira sa hardverom
+i ima potpunu kontrolu nad hardverom. Ta biblioteka linux kernela je skup C koda i pomalo
+asemblerskog koda. Ako bi neko hteo da koristi taj Kernel on bi trebao da zna da
+napiše kod koji će te fje da poziva. Kako svi korisnicu nisu programeri, postoji
+jedna grupa programa koja se naziva GNU koja komunicira sa Linux kernelom i obavlja
+neke zadatke tipa kreiranje fajlova, kopiranje fajlova i ostale najosnovnije potrebe.
+Zatim imamo GUI koji takođe komunicira sa Kernelom i korisniku obezbeđuje prikaz prozora
+(Windows managment). Na sve to se nadovezuje obične aplikacije, za manipulaciju tekstom,
+pristup internet, obradu fotografije itd. Linux predstavlja na slici sve iznad hardvera.
+
+*Linux Kernel
+Linux kernel pruža 4 funkcionalnosti.
+1)Hardware Managment - omogućava pristup hardveru, cpu,memorija,drajveri putem kojih
+se komunicira sa samim uređajima
+2)Process managment - omogućava upravljanje procesima, može da pokrene neki program,
+omogućava izvršavanje procesa na procesoru timeslice vremena, koji se sledeći proces 
+izvršava, koji je blokiran itd
+3)Memory managment - organizuje OM, šta se gde nalazi, šta je zauzeto, šta slobodnu(algoritam
+dinamičke alokacije)
+4)File System - organizuje fajlove na disku, omogućava kontrolu diskova preko fajl sistema
+Linux Kernel je Open Source, dostupan je javno na internetu kod kernela, odatle ima dosta
+da se nauči, ali je poprilično komplikovan i zahteva dosta vremena
+
+*Nastanak Linux Kernela
+Ljudi koji su uporedno sa razvijanjem C programskog jezika, razvijali i Unix operativni
+sistem. Taj Unix nije bio free softvera. 90-ih godina pojavio se jedan čovek koji se zove
+Linus Torvalds, student Finskog univerziteta, koji nije hteo da plati licencu za Unix.
+I onda je on napravio istu tu stvar za neki svoj računar na fakultet, kada je to uradio,
+video je da to dobro radi, i postavio je na internetu. I onda su ljudi počeli da mu se 
+javljaju e mogao bi ovo da promeniš, ovo da poboljšaš, i onda se stvorila masa ljudi
+koja je krenula da radi na razvoju tog kernela. I kao mešavina imena čoveka koji je to 
+započeo i Unix operativnog sistema dobijamo ime Linux. Ko god napravi nešto za Linux 
+kernel, submituje taj deo koda i onda ga Linux može prihvatiti. Linux kod je ogroman jedno
+40-50 MB teksta, što je ogroman broj linija. Linux kerneli mogu da se izvršavaju u mobilnom,
+Desktop računaru, nekom uređaju u automobilu, na ruci i slično.
+
+*GNU
+GNU je skraćenica od GNU's Not Unix, njegov osnivač je Richard Stallman. Unix pored kernel je imao i svoje programe
+koji su korišćeni za pristup Unix kernelu, i onda je jedna grupa ljudi kada se počelo
+sa pisanjem Linuxa i te programe koji su pisani za Unix takođe započne ispočetka i učini
+ih Open Source za dalje unapređivanje. GNU je skup programa koji služi za rukovanjem fajlova,
+manipulacijom teksta, rukovanjem procesima koje možemo pokrenuti iz komandne linije koja se naziva
+Shell. U većini instalacija Linux kernel i GNU programi idu jedno sa drugim
+
+*Windows managment
+Softver koji omogućuje da na monitor prikazujemo prozore i app u njima.
+Imamo Grafičku karticu i monitor za prikazivanje slike, za to mora postojati 
+jedan deo softvera koji će njih da kontroliše (X.Org - najčešće korišćen, 
+XFree86 - najstariji, Wayland - najnoviji). Taj softver služi samo za iscrtavanje
+prozora. A onda sve ono što je potrebno da bi GUI lepo izgledao, da imamo mogućnost
+da klikćemo, otvaramo, zatvaramo prozore, radi jedan deo softvera(KDE/GNOME) 
+
+*Distribucije
+Brojne profitne i neprofitne organizacije čine Linux raspoloživim u formi distribucija,
+odnosno različitih kombinacija kernela, sistemskog softvera i korisnikih aplikacija.
+Postoji takozvane distribucije koje na jednom instalacionom medijumu donose sve što je
+potrebno da bi pokrenuli vaš računar i tu postoji gomila različitih. Svaka od njih ima neku
+svoju filozofiju i namenu. Svaka od njih ukljčuje linux kernel i GNU. 
+1) Debian - njeni derivati su Ubuntu(najrasprostanjenija,zamišljena da bude slična windows,
+da korisnici koji koriste windows lako mogu i ubuntu, stvari su preslikane samo u 
+linux svetu) i Mint
+2)Red Hat - komercijalna distribucija(nije besplatna, kod je dostupan ali korišćenje nije besplatno,
+razlog je što ova distribucija ima primarno za cilj kompanije kojima ja potrebna i tehnička podrška 
+a i garancija da to što dobiju radi, jer vi kada imate open source koji skinete sa interneta tu uglavnom
+nemate podršku, niko vam neće reći kako šta da podesite i slično). Njen derivat je Fedora(besplatna za korišćenje)
+3)Arch - zanimljiva distribucija koja dolazi sa minimalnim stvarima, uglavnom dolazi samo sa kernelom i gnuom a onda 
+vi možete da birate šta ćete da instalirate, ima jako dobru kontrolu onoga što instalirate(recimo želite X.Org,GNOME)
+DODATI ODGOVOR NA FILOZOFSKO PITANJE
+
+Postoje distribucije koje su na primer orjentisane ka sistemskim administratorima ka security, gde sve app koje su 
+instalirane izuzetno istestirane da neovlašćeno lice ne može da upadne u sistem
+
+

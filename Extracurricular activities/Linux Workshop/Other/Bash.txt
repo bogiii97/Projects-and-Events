@@ -1,0 +1,9 @@
+Bash je interpreter i programski jezik u obliku komandne linije koji je napisao Brajan Foks za 
+projekat GNU. Uključen je na većini Unix-like operativnih sistema sa GNU licencom, što podrazumeva
+sve distribucije Linux-a i izdanja Unix-a koja su pod GNU lincencom. Na većini Linux-a ovo je 
+podrazumevani interpreter. Interpreter se podrazumevano isporučuje i na operativnom sistemu MAC OS
+Uz pomoć programa Cygwin moguće je pokrenuti Bash i pod Windows-om
+Bash sadrži sopstveni skriptni jezik, pomoću kojeg je moguće ostvariti visok nivo automatizacije poslova
+jer podržava petlje, grananja, promenljive i manipulaciju njihovih vrednosti uz pomoć reguralnih izraza,
+aritmetičke operacije, manipulaciju standardnog ulaza, izlaza i izlaza za greške i preusmeravanje u 
+datoteke

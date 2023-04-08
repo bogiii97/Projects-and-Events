@@ -1,0 +1,26 @@
+U Linux operativnom sistemimu sve se predstavlja preko fajlova. To podrazumeva da su i direkorijumi, pa
+cak i uredjaji poput misa, tastature, stampaca takodje predstavljeni preko fajlova. Tipovi fajlova u 
+sistemu Linux su:
+- "obicni" fajlovi - fajlovi u obliku kakav svi poznajemo (slika, video, tekst, program) i oni su ili u
+ascii ili u binarnom formatu
+- fajlovi direktorijumi - skladista za ostale tipove fajlova
+- fajlovi uredjaji - uredjaji koji komuniciraju sa OS-om predstavljeni su ovim fajlovima
+Za razliku od Windows sistema gde je fajl sistem organizovan u vise drajvova (C: ,D: ,E: ...) koji se predstavljaju šumom opštih stabala, 
+kod Linuxa koristi se struktura jedinstvenog stabla ciji se koren nalazi u korenom (root) direktorijumu - /. Root direktorijum je
+osnova hijararhije Linux fajl sistema i do svakog fajla se dolazi pocevsi od root direktorijuma. U root
+direktorijumu nalaze se poddirektorijumi sa razlicitim namenama. Najpoznatiji su:
+- /bin – sadrzi izvrsne programe koji su deo Linux operativnog sistema i mnoge komande i programe
+  (npr. shell koji predstavlja komandnu liniju)
+- /etc – konfiguracioni direktorijum celokupnog operativnog sistema
+- /home – podrazumevani direktorijum za skladistenje korisnickih podataka. Sadrzi licne direktorijume
+  za svakog korisnika, ali svaki licni direktorijum nosi /home za tog korisnika (samo root korisnik
+  moze videti sve home direktorijume)
+- /opt – opcioni paketi softvera i third-party aplikacije
+- /tmp – privremene datoteke koje se brisu sa svakim startovanjem sistema
+- /usr – deljivi i read-only podaci koji obuhvataju: binarne datoteke, biblioteke, dokumentaciju...
+- /var – datoteke specificne za korisnika: mejlovi, istorije, baza podataka instaliranih programa...
+- /boot- sadrzi fajlove potrebne za podizanje operativnog sistema, izmedju ostalog i sam kernel OS-a
+- /dev – virtuelni direktorijum koji sadrzi sve fajlove uredjaje
+- /lib – sadrzi deljene biblioteke(perl, python, C...) i kernel module
+- /mnt – podrazumevana lokacija za sve montirane uredjaje kao sto su cdrom, floppy disk, usb uredjaj...
+

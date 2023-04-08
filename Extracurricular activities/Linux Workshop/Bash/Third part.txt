@@ -1,0 +1,133 @@
+*Pokretanje skripte navođenjem imena
+(mkdir treci_cas, cd ./treci_cas/)
+(emacs -nw skripta.sh, dodati zaglavlje #!bin/bash)
+(chmod u+x skripta.sh, ./skripta.sh)
+Linux po defaultu pretražuje sve foldere koje se nalaze u jednoj sistemskoj varijabli echo $PATH
+Kao rezultat dobijamo putanje razdvojene sa :, tj to su sve folderi koje Linux pretražuje kada mi ukucamo neku komandu
+Mi kada smo kucali komande ls i tako dalje, mi nismo navodili apsolutne komande tj tog programa, već sam linux pretražuje
+navedene foldere
+Da bi mi u konzoli samo ukucali skripta.sh i pokrenuli je, bez da navodimo neku putanju moramo promeniti vrednost varijable echo $PATH
+export PATH=$PATH:/home/pos/treci_cas
+(echo $PATH)
+skripta.sh
+Promena je aktivna dok smo u trenutnom terminalu, kad bi u novom terminalu ukucali skripta.sh, linux ne bi pronašao komandu
+Ako bi želeli da svaki put kada otvorimo terminal imamo podešenu PATH varijablu moramo promeniti fajl .baschrc
+emacs -nw -bashrc (na kraju fajla dodati komandu export PATH=$PATH:home/pos/treci_cas)
+Otvorimo npr treći terminal i ukucamo skripta.sh i radiće sve
+
+*Rad sa tekstom
+sed - stream editor (za rad sa tekstom)
+ls -lh | sed 's/pos/POS'  - menjamo pos sa POS i to samo u prvom pojavljivanju malog pos u jednoj liniji
+Ako bi menjali na dva mesta napisali bi ls -lh | sed -e 's/pos/POS; s/pos/POS' 
+ls -lh | sed 's/pos/POS/g' - svako pojavljivanje pos u liniji se menja sa POS 
+ls -lh | sed '3s/pos/POS/g' - primenjuje se samo u trećoj linije sed komanda
+ls -lh | sed '3,5s/pos/POS/g' - primenjuje se od 3 do 5 linije
+ls -lh | sed '3,$s/pos/POS/g' - od treće linije pa do kraja se primenjuje
+ls -lh | sed '/Public/s/pos/POS/g' - u liniji u kojoj se nađe tekst Public izvršiće se zamena pos sa POS
+ls -lh | sed '1d' - brišemo prvi red (1 koji red brišemo, d znači brisanje)
+ls -lh | sed '/Public/d'- red koji sadrži tekst Public izbriši
+ls -lh | sed '1a\Ova linije je ubacena' - nakon prve linije se ubacuje tekst koji navedemo
+ls -lh | sed '1i\Ova linije je ubacena' - pre prve linije se ubacuje tekst koji navedemo
+ls -lh | sed -n '/Apr/p'  - ištampaj redove u kojima se nalazi reč Apr
+ls -lh | sed -n '/rwx/p' 
+ls -lh | sed -n '/rw./p' - tačka menja bilo koji karakter(samo jedan) pa se vraćaju redovi koji u sebi sadrže rw pa bilo šta posle toga
+echo poooos | sed -n '/p.s/p' - neće vratiti ništa jer nema poklapanja, . menja samo jedno o a ne sva četri o
+echo poooos | sed -n '/p.*s/p' - .* bilo koji karakter(znak ispred *) može da se pojavi 0 ili više puta 
+echo poooos | sed -n '/[Pp].s/p' - označava da želimo da vratimo redove koji počinju sa nekim znakom iz [] (isprobati i sa echo Poooos i sa aoooos)
+echo poooos | sed -n '/[Pp]o*[Ss]/p'
+echo apoooos | sed -n '/[Pp]o*[Ss]/p' - ovo će proći jer reguralni izraz se traži negde unutar teksta
+echo poooos | sed -n '/^[Pp]o*[Ss]/p' - sa ^ smo rekli da naša linija mora da počne sa P ili p
+echo poooos | sed -n '/^[a-Z]o*[Ss]/p' - možemo koristiti i opsege karaktera koja mogu da se jave
+echo pos123pos | sed -n '/[1-9]*/p' 
+echo pos123pos | sed -n '/[1-9][1-9][1-9]/p' - hvatamo sve linije koje sadrže 3 cifre 
+
+Ovo su bile osnovne forme regularnih izraza, sada ćemo se pozabaviti složenijim formama
+
+echo pos123pos | sed -En '/[1-9][1-9][1-9][1-9]?/p' - stvar ispred upitnika može da se pojavi jednom ili nijednom
+echo pos123pos | sed -n '/[1-9][1-9][1-9][1-9]+/p' - znak ispred + će se pojaviti minimum jednom 
+echo pos123pos | sed -n '/[1-9]+/p'
+echo pos123pos | sed -n '/[1-9]{3}/p' - u okviru {} specificiramo koliko tačno puta želimo da se neki karakter kojeg tražimo pojavljuje 
+echo pos123pos | sed -n '/[1-9]{1,4}/p' - tražimo izraze koji sadrže 1,2,3 ili 4 cifre
+echo pos123pos | sed -n 's/([a-Z]*)([1-9]*)[a-Z]/\2/p' -  u zagradama formiramo grupe, s znači da ono što se nađe regularnim izrazom se menja sa \2
+echo abc123 | sed -n 's/([a-Z]{3})([1-9]{3})/\2\1/p' - dobićemo invertovano abc i 123
+Primer validnosti studentskog mejla 
+echo rb200109d@student.etf.bg.ac.rs | sed -En '/^[a-z]{2}[0-9]{6}d@student\.etf\.bg\.ac\.rs/p' - mora \ ispred . jer bi se inače tačka tumačila kao bilo koji karakter a ne kao sama tačka
+
+
+*Pokretanje skripte koja prima parametre iz komandne linije
+(cd ./treci_cas/
+emacs -nw zad1.sh)
+(#!/bin/bash)
+echo Ime: $1
+echo Prezime: $2
+echo Broj indeksa: $3
+Želimo da od spolja kad neko bude pozvao skriptu, da nam zapravo prosledi 3 parametra
+Vraćamo se u konzolu
+(chmod u+x zad1.sh)
+zad1.sh Bogdan Radosavljevic 2020/0109
+Vraćamo se u skriptu
+Dodajemo na početku echo Program: $0 - možemo da ispišemo i ime programa
+Međutim ispisuje se kompletna putanja do skripte, da bi ispisali samo ime pisem `basename $0` 
+Možemo vršiti proveru da li su parametri prosleđeni valjani
+Dodamo na početku if [ -n "$1" -a -n "$2" ] then - ovo -n pita da li se nešto nalazi unutar $1 tj $2 i ukoliko se nalazi vraća logičku istinu
+Objedinićemo ime i prezime
+echo Program: `basename $0` 
+echo Ime i prezime: $1
+echo Broj indeksa: $2
+else
+	echo Nisu svi parametri uneti
+zad1.sh Bogdan Radosavljevic 2020/0109
+Međutim ovo neće raditi valjano jer se parametri razdvajaju belinama
+Da bi Bogdan Radosavljević bio jedan parametar stavićemo ga pod ''
+Pokazati i slučaj kad nisu svi parametri uneti zad1.sh Bogdan Radosavljevic
+Da ne bi ispitivali za svaki od par dal je prazan možemo reći if [ $# -eq 2 ] - $# je promenljiva koja čuva broj par prosleđen iz kom linije 
+
+Pored $# postoje još dve spec promenljive $* i $@ koje čuvaju sve parametre koje smo prosledili kao jedan string
+echo Testiranje \$* i \$@ - escape-ujemo znake $ jer želimo ispis toga
+echo $* - ovo sve tumači kao jedan definisani string
+echo $@ - ovo tumači kao razdvojene parametre 
+Primer se može videti u for petlji
+for param in "$*" do  - ovo isto i za $@ uraditi
+echo $param
+done
+
+Pokazaćemo još jedan način za obilaženje svih parametara
+echo Testiranje shift komande
+while [ $# -gt 0 ] do
+	echo$1
+	shift
+done
+Prilikom svake iteracije while petlje prvi parametar uvek ispadne tj shiftuje se, pa na njegovo mesto dodje drugi parametar a ujedno se smanjuje
+broj parametara u $#
+
+*Prosleđivanje opcije skripti
+zad1.sh -a - pa da onda nešto radimo sa opcijom a, možemo da pravimo i kombinaciju opcije i parametara
+Opcije koje prosledimo našoj skripti najčešće ispitujemo u nekoj while petlji
+while getopts ab opt do - getops naredba je ugrađena u okviru bash-a, nju pozovemo unutar while gde se piše uslov za while i kažemo koju opciju želimo da naša skripta ima i navedemo ime prom koju koristimo u telu while 
+	case $opt in (analogija za swich(izraz))
+		a) echo Opcija a
+		;; (analogija sa break)
+		b) echo Opcija b
+		;;
+		*) echo Nije podrzana opcija  (analogija sa default granom)
+	esac (kraj switch-a)
+done
+Kad getopts prepozna -slovo u ab(iterira kroz ab getopts) to slovo ubacuje u opt promenljivu u while će se smatrati da ima uslov koji je tačan
+zad1.sh -a -b
+zad1.sh -b -a
+zad1.sh -a
+zad1.sh -c (Ovde će se ispisati dodatna poruka i nju će ispisati getopts naredba, ako to ne želimo stavimo : ispred navođenja opcija u while)
+Ako bi želeli da naša opcija ima i parametar moramo u while iza naše opcije stavimo :  (while getopts a:b opt, u case a staviti i echo Parametar opcije a je: $OPTARG, ovde se upisuje parametar za zadatu opciju ako postoji)
+zad1.sh -a 235
+
+Ako bi želeli da posle opcija imamo još neke dodatne parametre pri pozivu skripte, ono što je dobro je da komanda getotps kada pročita opcije koje smo naveli
+ona ima neki interni indeks u kome vodi računa na kojoj poziciji je pročitala poslednju opciju, i svaki put kada pročita neku opciju ona inkrementira prom $OPTIND
+Nakon pročitanih svih opcija $OPTIND će sadržati poziciju posl opcije. Koristićemo opciju shift, koja shift-a sve parametre ulevo za 1(no arg) ili određen broj )
+echo Ostali parametri:
+shift $[$OPTIND - 1] - pozicionirali smo se ispred prvog parametra koji je ostao    
+for param in "$@"
+do
+	echo $param
+done 
+
+zad1.sh -b -a 212 prvi drugi treci 4

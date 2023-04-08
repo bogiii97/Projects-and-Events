@@ -1,0 +1,57 @@
+1)Cena i licence
+-Kao što je poznato Linux je besplatan i open source softver (FOSS – Free and Open Source Software), što znači da ga u 
+celosti možete koristiti potpuno besplatno, pa čak i vršiti modifikacije na njemu kako biste ga prilagodili svojim 
+potrebama. Distribuira se pod takozvanom opštom javnom licencom (GNU – General Public Licence)
+-Kao što je poznato Windows se isporučuje uz Microsft licencu koja ne dozvoljava pristup izvornom kodu. To znači 
+da niste u mogućnosti da pravite bilo kakve modifikacije na standardnom nivou. Pored toga Windows nije besplatan
+Činjenica je da možete koristiti Windows 10 Media Creation Tool da biste instalirali poslednju verziju Windows-a 10
+na vaš računar, ali pre toga morate da kupite licencu za aktivaciju, koja se kreće negde između 70 – 120 USD za standardnu verziju.
+Možete izabrati da jednostavno ne aktivirate svoju kopiju Windows-a, ali u tom slučaju ćete morati da se naviknete da vam stalno na 
+ekranu stoji poruka koja vas podseća na registraciju.
+
+2)Sigurnost i privatnost
+-Verovatno ste već čuli da Linux korisnici nemaju potrebe za antivirus softverima s obzirom da je ovaj operativni sistema otporan na 
+viruse. Naravno, ovde ima i preterivanja jer i Linux može biti predmet napada zlonamernim softverom. Ipak, on jeste bezbedniji ali ne i potpuno zaštićen od virusa.
+Ono što ga sigurno čini mnogo sigurnijim je to što podrazumevano ne dozvoljava root pristup ili administrativne privilegije svim korisnicima.
+Kada je u pitanju privatnost, Linux korisnici su tu potpuno bezbrižni. Skoro nijedna od popularnih Linux distribucija ne prikuplja bilo kakve podatke o korisnicima,
+pa svaki Linux korisnik može da bude siguran da niko ne prati njegove offline i online aktivnosti.
+-S obzirom da se masovno koristi, Windows je veoma izložen napadima hakera. Windows Defender koji podrazumevano dolazi uz Windows 10 ne može da pruži potreban nivo 
+zaštite od svih mogućih napada, pa je uvek preporuka da uz Windows instalirate neki third-party antivirus softver.Na kraju, ostaje i činjenica da vaš Windows podrazumevano 
+prikuplja podatke o vašim aktivnostima, pa ukoliko vam je stalo do privatnosti, moraćete da isključite sve opcije koje su podrazumevano uključene da prate aktivnosti korisnika
+
+3)Stabilnost i pouzdanost (ovo može kao zanimljivost)
+-Još od svog prvog izdanja Linux je posvećen stabilnosti, pa se kroz sve ove godine postojanja s pravom smatra jednim od najstabilnijih operativnih sistema na tržištu. Iz tog 
+razloga se mnoge kompanije kao što su Google, Facebook, pa čak i sam Microsoft (za Azure cloud servise) odlučuju za Linux kada su u pitanju cloud sereveri.
+U pitanju je dobro optimizovan operativni sistem koji odlično upravlja pozadinskim procesima i koji zbog toga može da izdrži veliko opterećenje. Mnogi Linux serveri rade bez 
+prestanka i preko godinu dana, a da im nije potreban čak ni restart. U komercijalne svrhe 1,25% PC računara ima linux operativni sistem, a kod serverskih računara 95% ima
+linux operativni sistem
+-Windows sa sobom donosi gomilu pratećeg softvera koji vremenom dodatno opterećuju operativni sistem, čineći ga sporim i tromim. Posle nekog vremena sigurno ćete početi da 
+primećujete usporavanja, pa čak i padove sistema. Iz tog razloga korisnici Windows-a s vremena na vreme moraju da reinstaliraju Windows na njihovim računarima
+
+4)Ažuriranja i nadogradnje
+-Jedan od najboljih stvari u vezi sa Linux-om je to što korisniku pruža potpunu slobodu nad softverom. To uključuje i šta je instalirano, odakle je instalirano i kada je ažurirano. 
+Čak imate i potpunu autonomiju nad nadogradnjom vašeg Linux-a na noviju verziju.Takođe, ažuriranje instaliranog softvera je veoma lako i jednostano. Sve je dostupno iz centralizovane 
+biblioteke. Sve što treba da uradite je da napišete liniju koda i softver će biti ažuriran za nekoliko minuta.
+-Kada su u pitanju ažuriranja i nadogradnje, kod Windows-a je upravo sve obrnuto u odnosu na Linux. Pre svega, korisnici imaju veoma malo, ili nemaju uopšte kontrolu nad ažuriranjima
+koja se povremeno izbacuju. Može se desiti da radite na nekom važnom projektu, a da se u pozadini odjednom startuje proces ažuriranja koji će prilično usporiti vaš rad dok se ne instalira.
+Zbog pritužbi veikog broja korisnika na upravo ovakve situacije, Microsoft je uključio opciju koja vam omogućava da odredite kada želite da Windows preuzme neki važan update.
+MIM SA SACUVANE OBJAVE NA INSTA
+
+5)Lakoća korišćenja
+-Linux nije baš poznat kao user-friendly operativni sistem, ali se u međuvremenu dosta toga promenilo. Štaviše, kroz stalne izmene i unapređivanje Linux je postao veoma intuitivan, tako da 
+ga većina savremenih korisnika računara može koristiti i bez nekog tehničkog predznanja.Gotovo sve savremene distribucije doalze sa prilično uglancanim GUI-jem, što korisnicima omogućava da 
+skoro sve aktivnosti na računaru obave bez potrebe da rade u komandnoj liniji.
+-Windows je sa druge strane dosta intuitivniji od Linux operativnog sistema
+
+6)Podrška hardvera
+-Linux nudi mnogo raznovrsniju podršku za hardver u poređenju sa Windows-om. Pod  raznovrsnije pre svega mislimo na činjenicu da Linux može da radi i na starom hardveru. Ako biste pokušali da 
+pokrenete Windows na starom hardveru, ili ne biste uopšte uspeli da ga instalirate, ili bi nakon instalacije toliko kočio da bi manje-više bio potpuno neupotrebljiv za rad. Dakle, ako 
+imate stari laptop ili računar, bez problema možete instairati Linux i radiće kao sat.
+-Windows je veoma rasprostranjen operativni sistem, pa stoga ima i bolju hardversku podršku. Svaki noviji proizvođač vodi računa o tome da njegov komad hardvera u potpunosti bude kompatibilan
+sa Windows-om. Oni objavljuju svoje drajvere u ranoj fazi proizvodnje i sve vreme ih ažuriraju.
+
+7)Podrška za igre (ovo može kao zanimljivost)
+-Linux nikada nije bio poznat po svojoj podršci za igre. Ipak, sa novijim promenama novi naslovi polako dolaze i u verzijama za Linux. Sa druge strane nisu svi proizvođači igara spremni 
+da izdaju verzije svojih naslova i za Linux, jer jednostavno Linux nije nikada ni bio namenjen za igranje. Ipak, ukoliko želite da igrate igre i na Linux-u to možete učiniti uz pomoć 
+Steam-a. On će vam pomoći da pokretene igru na Linux-u iako nije zvanično izdata i za tu platformu.
+-Nije potrebno posebno pominjati da Windows ima odličnu podršku za igre. Sve značajnije igre je moguće pokrenuti na Windows-u osim ukoliko nisu ekskluzivno rađene za konzolu.

@@ -1,0 +1,162 @@
+*Prava pristupa
+(pwd;  mkdir cas_s; cd ./cas_2)
+(touch f1.txt)
+ls -lha  -   -rwxrwxrwx pos pos(prvi znak označava da li je fajl(-) ili direktorijum(d), i imamo 3 grupe od po 3 karaktera(read,write,exetuce - user,group,others)
+			po defaultu dobija se grupa koja se zove isto kao i vlasnik
+Podrazumevana prava koja se dodeljuju su 666, ali se od njih oduzima jedan broj koji se dobija kada se pokrene komanda umask(0022) (i dobijamo -rw-r--r--)
+Tu masku možemo menjati npr (umask 0222)
+(touch f2.txt; ls -lha)
+Možemo menjati prava pristupa ali to moramo raditi sa root privilegijama
+sudo su - prelazak u režim sa root privilegijama (Izlazak iz režima je komanda exit)
+(sifra je student)
+chmod 0-7|0-7|0-7 f1.txt - omogućavamo sve nad fajlom f1.txt
+(ls -l, ime fajla je zelene boje jer može da se izvršava)
+(chmod 744 f1.txt, ls -l)
+chmod {u,g,o}+{r,w,x} f1.txt  (g+w) - eksplicitno dodaj nekoj od tri grupa određeno pravo pristupa
+chmod  {u,g,o}-{r,w,x} f1.txt (u-x) - oduzmi neko pravo
+chmod o=w - prava pristupa se postavljaju samo na navedene vrednosti
+(ls -l)
+chown root f1.txt - promeniti vlasnika grupe tako da je to sada root
+chown .root f1.txt - promeniti grupu tako da je to sada root (možemo spojiti poslednje dve naredbe)
+
+(mkdir deljeni; ls -l; ideja je da napravimo jednu grupu koja će da služi kao deljena grupa tj ta direktorijum deljeni pripada nekoj grupi, ideja je
+da svi korisnici iz tako jedne grupe imaju neka određena prava pristupa)
+addgroup share - pravljenje nove grupe share
+(chown .share deljeni/; ls -l; kod direktorijuma se podrazumevano dodeljuje pravo pristupa 777-0222)
+(chmod g+w deljeni/; ls -l)
+(ch ./deljeni/)
+touch f3.txt (Mi želimo da svi fajlovi koji se budu pravili u okviru ovog direktorijuma da pripadaju grupi share, hoćemo da imamo grupu korisnika kojima
+će da podesimo prava pristupa i ako pripadaju grupi share moći će da rade nad svim tim fajlovima ono što im je dozvoljeno, zelimo da umesto root piše share)
+cd ..
+chmod g+s deljeni/ - sve što se stvara u okviru direktorijuma deljeni će imati isti grupu koju ima i deljeni
+(ls -l; cd ./deljeni/;  ls -l; touch f4.txt; ls -l
+
+*Procesi: prikaz, pokretanje, ubijanje
+psaux - prikazuje sve pokrenute procese na operativnom sistemu
+(U direktorijum u kojem radimo smestimo fajl ./beskonacni)
+./beskonacni - pokrećemo izvršavanje tog fajla koji vrti beskonačnu petlju(prethodno mu dozvolimo pravo pristupa na izvršavanje)
+ctrl + Z - stopiranje tog procesa
+fg id - izvršavanje procesa se nastavlja u istoj konzoli (fg - foreground, id - id koji je jobs komanda izlistala)
+bg id - izvršavanje procesa u pozadini, dobijamo kontrolu nad konzolom (bg-background)
+jobs - prikaz procesa koji su pokrenuti unutar terminala  
+jobs -p - prikaz id procesa koji su pokrenuti unutar terminala
+kill idProcess - ubija proces sa zadatim identifikatorom(ne mora nužno, jer proces ne mora da se ugasi, može da preusmeri reakciju na naredbu kill, kill -9 id je nasilno gašenje) 
+(jobs; sada će pisati da je naš proces terminated)
+top - prikaz svih pokrenutih procesa sa live ažuriranjem tabele
+
+*Promenljive, aritmetika i test komanda
+env - izlista sve sistemske promenljive (Oblik je promenljiva = vrednost)
+echo $USER - ispisivanje vrednosti sistemske promenljive
+(echo $HOME)
+var1=10 - definisanje promenljive koja je živa dok je terminal otvoren
+echo $var1 - ispisivanje vrednosti naše promenljive
+var2="Neki tekst" - string mora pod navodnicima
+(echo $var2)
+var3=$var2 - var3 dobija vrednost promenljive var2
+(echo $var3)
+b1=10
+b2=5
+b3=b1+b2
+echo $b3 (Ovde će se ispisati b1+b2 jer deo nakon = u gornjoj naredbi se tumači kao string)
+b3=$b1+$b2(Ovde će se ispisati 10+5, zameniće se lepo vrednosti ali se neće izvršiti aritmetika već ispis stringa)
+b3=$(expr $b1 + $b2) (ispravan način, mora da stoje ovako razmaci)
+echo $b3 (ispisaće se 15)
+b4=$[ $b1 + $b2 ] (drugi način za pisanje izraza)
+echo $b4
+echo $? - prikazuje da li se poslednja izvršena komanda uspešno izvršila (0-uspešno, >0 - neuspešno; pokazati na primeru ls -l i lss(ne postoji komanda))
+var=123
+test $var = 123; echo $? - proveravamo da li je var==123, echo$? štampa rezultat poslednje izvršene komande, komande razdvajamo sa ;
+(pokazati i test $var = 124)
+test $var = 123;  <--> [ $var = 123];  (drugi način zapisa) 
+[ abc '<' abd ]; echo $?  - mora < pod navodnike jer bi inače ono označavalo preusmeravanje ulaza tj izlaza
+[ -z "123" ]; echo $? -  -z ispituje da li string sadrži 0 karaktera, pošto ne sadrži dobijamo rezultat veći od 0 (isprobati sa "")
+[ -n "123" ]; echo $? - -n ispistuje da li string sadrži bar jedan karakter
+var=100
+[ $var -gt 90 ]; echo $? da li je var veće od 90 (greater than)
+[ $var -lt 90 ]; echo $? da li je var manja od 90 (less than)
+[ $var -eq 90 ]; echo $? da li je var jednaka 90 (equal)
+U okviru uglastih zagrada možemo da vezujemo uslove (or, and...)
+[ $var -gt 101 -o $var -lt 110 ]; echo $? ( var>101 or var<110 , za and se koristi -a)
+[ -d deljeni]; echo $? da li je deljeni direktorijum
+[ -f deljeni]; echo $? da li je deljeni fajl
+[ -x f1.txt]; echo $? da li fajl može da se izvršava
+i=0
+echo $i
+let i++ - let komanda je zgodna za korišćenje kod brojača da na olakša posao
+echo $i
+(let i=i+2)
+
+ 
+*Osnove skripti, if, for, while i ifs
+Za pisanje skripti koristićemo tekstualni editor emacs
+emacs -nw skripta.sh - pokretanje emacs-a u samom terminalu (analogija sa emacs-om je npr notepad++), skriptu pišemo u fajlu skripta.sh
+Da bi se fajl tumačio kao bash-shell skripta mora da počne sa #!/bin/bash
+echo Zdravo svima!
+Da bi izašli iz editora ctr+x+s (sačuvali ono što smo odradili), ctr+x+c (izlazak)
+ls -l (nalazi se tu sad skripta naša)
+./skripta.sh (pokretanje skripte ali moramo promeniti prava pristupa skripti)
+chmod 777 skripta.sh
+./skripta.sh (pokrećemo skriptu)
+(emacs -nw skripta.sh)
+Komentare pišemo iza znaka #
+(#Ovo je komentar) (napišemo u tekstualnom editoru)
+Primeri napisani u okviru jedne skripte:
+1) if else
+tmp=1
+if [ $tmp -eq 1 ]; then
+	echo Tmp je 1!
+else
+	echo Tmp nije 1!
+fi (zatvaranje if-a kao kontrolne strukture)
+
+if [ -e skripta.sh -a -w skripta.sh -a -x skripta.sh]; then - da li postoji fajl skripta.sh u direktorijumu odakle se pokreće skripta, i da li u njega možemo  da upisujemo i izvršavamo
+	echo Skripta skripta.ch postoji, moze da se menja i izvršava
+else
+	echo Skriptu nije moguce koristiti!
+fi
+
+3)else if grana
+tmp2=2
+if [ $tmp2 -eq 1 ]; then
+	echo tmp2 je 1!
+elif [ $tmp2 -eq 2 ]; then
+	echo tmp2 je 2!
+fi
+
+4) while
+i=0
+while [ $i -lt 5 ]; do
+	let i++
+	echo $i.
+done
+
+5) for(for petlja nije brojačka petlja kao u višim programskim jezicima, dok je i nešto idi uvećavaj i ili smanjuj, to je tekstualna petlja jer radi sa tekstom,
+njen input je tekst, i onda ona prolazi kroz tekst, promenljiva koja se koristi za iteriranje kroz for petlju uzima po jednu reč iz teksta tj sve što se nalazi
+izmedju belina (tab, enter i space)
+
+for j in 6. 7. 8. 9. 10.; do (promenljiva j prolazi kroz tekst koji ide nakon in)
+	echo $j
+done
+
+Mi for petlji može da prosledimo rezultat neke druge komande, a da onda for petlja prodje kroz taj tekst koja je dobila kao rezultat
+for j in $(ls -h); do
+	echo $j
+done
+ 
+(find . -maxdepth 1 -name "*.txt"  -pretraži u tekućem direktorijumu na maksimalnoj dubini 1 sa imenom koje se završava sa .txt)
+i=1
+for j in $(find . -maxdepth 1 -name "*.txt"); do
+	echo $i. $j 
+	let i++
+done
+
+6)IFS - sistemska promenljiva koja sadrži znakove koji predstavljaju delimitere na osnovu kojis for petlja razgraničava reči, podrazumevana vrednost je znak beline
+(Van editora ovo odraditit: touch ff.txt, chmod 777 ff.txt, echo Prva recenica. >> ff.txt, cat ff.txt, echo Ovo je druga recenica. >> ff.txt, cat ff.txt)
+OLD_IFS = $IFS
+IFS=$'\n' (mora dolar da bi shell tumačio enter kao dodeljenu vrednost promenljivoj a ne kao da smo samo prešli u novi red
+for j in $(cat ff.txt); do 
+	echo $j
+done
+IFS=$OLD_IFS
+Dobra je praksa restaurirati staru vrednost IFS u slučaju da neki drugi korisnik želi nešto da radi u konzoli i slično
+  

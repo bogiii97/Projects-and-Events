@@ -1,0 +1,76 @@
+pritisnuti tab za auto-complete pri kucanju komandi
+
+*Prikazivanje sadržaja
+pwd - koji je tekući direktorijum (print working directory)
+ls - sadržaj tekućeg direktorijuma
+cd rel/aps putanja - promena tekućeg direktorijuma (tada nam se ispisuje u kom direktorijumu se nalazimo)
+cd ~ - promena tekućeg direktorijuma na tekući korisnički direktorijum /home/pos(=~)
+ls -l - detaljne informacije o sadržaju direktorijuma (prava pristupa,broj referenci na to, ime korisnika koji je vlasnik, korisnicka grupa, veličina fajla, kad je posl put menjana)  (opcije se pisu sa -)  
+ls -l -h - veličina fajla se ispisuje u najvećim mogućim jedinicama, kb,mb,gb itd.
+ls -la - ispisuje i skrivene fajlove, skriveni fajlovi njihovo ime počinje sa tačkom, ideja skrivenih fajlova je da
+isključivo da se oni ne vide stalno, to su uglavnom konfiguracioni fajlovi koji ne treba uvek da se vide i pregledaju, jednom ih
+podesite i onda ih koristite samo po potrebi
+man ls - prikazuje sve opcije za komandu ls
+
+
+*Menjanje fajl sistema
+mkdir ime - kreiramo direktorijum sa imenom ime(prikazati sa ls -l komandom) 
+rmdir ime - brisemo direktorijum sa imenom ime
+(primer: mkdir drugi)
+touch drugi/f.txt - pravljenje praznog fajla preko touch komande u direktorijumu drugi
+cp f.txt f1.txt
+(cd drugi, ls -l)
+cp f1.txt f.txt - kopiramo fajl f1.txt u f.txt
+mv f.txt f2.txt - fajl f premeštamo u fajl f2 (f više ne postoji)
+(cd..)
+cp drugi treci (ovo neće raditi jer cp može da kopira samo jednu stvar a u direktorijumu drugi postoji više stvari)
+cp drugi treci -R  ovo će raditi jer kažemo da se vrši rekurzivno kopiranje
+(prikazati sadržaj direktorijuma treći, mv drugi cetvrti)
+rm cetvrti/f.txt - brisanje fajla u direktorijumu cetvrti
+rmdir cetvrti - neće uspeti jer rmdir radi samo sa praznim direktorijumom, jer rmdir trajno briše stvari i zato treba biti pažljiv
+rm cetvrti -r - ovo je način da to uradimo
+
+*Rad sa fajlom
+(mkdir peti, cp examples.desktop peti/f.txt, cd peti)
+stat f.txt - prikaz informacija o fajlu
+file f.txt - prikaz formata fajla (ekstenzija nema znacaja na linuxu, uradimo npr cp f.txt f.avi,  f.avi ce biti tekstualni fajl svakako, file komanda na osnovu prvog fajla zaključi kakav će biti drugi fajl)
+(file /bin/ls)
+cat f.txt - prikaz sadržaja fajla
+cat f.txt t.avi - prikaz sadržaja svih navedenih fajlova
+Nekad može da se desi da imamo komandnu liniju koja nema scroll sa strane tada ne možemo da vidimo šta se nalazi na početku fajla, već vidimo poslednjih x linija fajla. To je realna situacija 
+koja moža da se desi posebno kada pristupamo udaljenoj mašini, kada Grafički interfejs bude zablokiran iz bezbednosnih razloga jer je podložan hakovanju. Rešenje problema su dve komande
+more f.txt - prikaz početka fajla, pritiskom na enter se krećemo kroz fajl
+less f.txt - krećemo se gore dole kroz fajl uz pomoć strelica, pomoću slova q izlazimo iz ove komande
+head -n broj f.txt - prikaz prvih broj linija fajla (tail radi suprotno)
+Kada izađemo iz programa komandne linije i uđemo opet kada ukucamo ~/.bash_history prikazuje se istorija komandi koje smo kucali (moze i history komanda)
+CLI je dobar za obradu više fajlova odjedanput na isti način, CLI podržava šablone, gde možete da specificirate deo fajla koji hoćete da obradite
+(cd peti/ , mkdir sesti, cp f.avi, f.txt sesti   <--> cp f* sesti - prekopiraj sve što počinje sa f pa nešto u direktorijum šesti)
+(Ako hoćemo da prosledimo * kao parametar a da se ne gleda kao šablon, koristićemo navodnike da kažemo da * nije specijalan znak cp "f*" sesti)
+U CLI postoji preusmeravanje ulaza izlaza 
+ls ispisuje spisak fajlova na standardni izlaz, ako hoćemo to da zapamtimo u neki fajl onda ćemo to preusmeriti u neki fajl
+Za to se koristi znak >
+ls > f2.txt
+(cat f2.txt)
+ls < f2.txt - preusmeravanje standardni ulaz, s tim da komanda treba da čita negde sa scanf, ona ne bi čitala sa standardnog ulaza već iz zadatog fajla
+(cp "f*" sesti > f3.txt, cat f3.txt) ovo će svkk ispisati grešku jer se ona ispisuje na stderr , a f3 će biti prazan  
+rešenje ovoga je cp "f*" sesti 2> f3.txt (cat f3.txt) (2> - standardni izlaz za grešku ide u fajl f3) 
+A ako hoćemo da ispišemo i jedno i drugo cp "f*" sesti &> f3 .txt  (i stdout i stderr ide u fajl f3)
+Preusmeravanje radi tako da obriše prethodni sadržaj fajla u koji preusmeravamo
+Da do toga ne bi došlo "f*" sesti &>> f3 .txt
+Postoji mogućnost da rezultat jednog programa preusmerimo na drugi program i onda da kombinacijom više programa dobijemo kompleksnu funkcionalnost
+(cat f.txt)
+cat f.txt | grep sr - grep radi tako što vrši pretragu na tekst zadat kao parametar (sr - srpski jezik)
+(car f.txt grep "[\sr\]",   [] se koristi za regularne izraze)
+Prilikom pipe-ovanja ništa se ne ispisuje na stdout kao međukorak, ako nam je potrebno da znamo šta je međukorak koristimo  tee
+cat f.txt | tee file.txt | grep "[\sr\]"
+ls -l | cut -d\ -f1 - cut izdvaja kolone teksta koje su nam od interesa, koristimo opciju d sa parametrom koji kaže šta je razmak između kolona, -f1,3 želimo kolonu 1 i 3 
+echo aaaaa - ispis bilo teksta aaaaa
+echo aaaaa | tr a b - tr naredba menja a sa b
+echo aaaaa | tr -s a b - menja se a sa b i brišu svi duplikati 
+echo aaaaafffffaaaa | tr -d f - briše slovo f iz teksta
+cat f.txt | wc (word count) - broj linija, broj reči , broj karaktera
+ls -l | tr -s \  \  | cut -d\  -f5 | sort (-n, -k4, bez -n sortira leksikografski, -k4 sortira po koloni 4)
+find direktorijum kriterijumPretrage naziv)
+(find / -iname videos,  tražimo fajlove i direktorijume koji imaju naziv videos u celom fajl sistemu, -iname zanemaruje velika i mala slova jer je terminal case sensitive)
+(find / -iname f\*txt 2> /dev/null - prikaz fajlova koji počinju sa f a završavaju se na txt preusmeravamo dev null fajl koji je kao crna rupa, sav sadržaj koji ovde upišemo odmah se briše
+(sudo updatedb, locate fajl, brži način od find, koristi u pozadini indeksiranje,keširanje)
